@@ -1,4 +1,4 @@
-let maxId;
+let maxId = 0;
 
 function link(cell, formatterParams) {
 	var url = cell.getValue();
