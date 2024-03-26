@@ -1,8 +1,21 @@
 let maxId = 0;
+let bChanged = false;
 
-function link(cell, formatterParams) {
+function link_url(cell, formatterParams) {
 	var url = cell.getValue();
 	return "<a class=\"hlink_table\" href=\"" + url + "\" target=\"_blank\">" + url + "</a>";
+}
+
+function cell_edited(cell) {
+	console.log("cellEdited");
+	bChanged = true;
+}
+
+function alert_unsave(e) {
+	if (bChanged) {
+		e.preventDefault();
+		e.returnValue = "";
+	}
 }
 
 var table = new Tabulator("#main-table", {
@@ -22,23 +35,32 @@ var table = new Tabulator("#main-table", {
 		tooltip: true,
 	},
 	groupBy: "type",
+	
 	// autoColumns: true,
 	rowHeader: { headerSort: false, resizable: false, frozen: true, headerHozAlign: "center", hozAlign: "center", formatter: "rowSelection", titleFormatter: "rowSelection", cellClick:function(e, cell) {
 		cell.getRow().toggleSelect();
 	} },
+	// rowSelected: function(row) {
+	// 	console.log("row");
+	// 	bChanged = true;
+	// },
+	// rowDiselected: function(row) {
+	// 	console.log("row");
+	// 	bChanged = true;
+	// },
 	columns: [
 		{ title: "ID", width: 50, field: "id" },
-		{ title: "作者", width: 90, field: "author", editor: "input" },
-		{ title: "作品名", width: 100, field: "name", editor: "input" },
-		{ title: "作品名（詳細）", width: 135, field: "name_detail", editor: "input" },
-		{ title: "種類", width: 100, field: "type", editor: "input" },
-		{ title: "URL", width: 200, field: "url", formatter: link, editor: "input" },
-		{ title: "ニコニコ作品番号", width: 100, field: "niconico", editor: "input" },
-		{ title: "ニコニコ利用", width: 50, field: "available_nico", formatter:"tickCross", sorter: "boolean", editor: true },
-		{ title: "YouTube 利用", width: 50, field: "available_yt", formatter:"tickCross", sorter: "boolean", editor: true },
-		{ title: "その他利用", width: 50, field: "available_others", formatter:"tickCross", sorter: "boolean", editor: true },
-		{ title: "改変", width: 50, field: "available_mod", formatter:"tickCross", sorter: "boolean", editor: true },
-		{ title: "その他", width: 150, field: "others", editor: "input" },
+		{ title: "作者", width: 90, field: "author", editor: "input", cellEdited: cell_edited },
+		{ title: "作品名", width: 100, field: "name", editor: "input", cellEdited: cell_edited },
+		{ title: "作品名（詳細）", width: 135, field: "name_detail", editor: "input", cellEdited: cell_edited },
+		{ title: "種類", width: 100, field: "type", editor: "input", cellEdited: cell_edited },
+		{ title: "URL", width: 200, field: "url", formatter: link_url, editor: "input", cellEdited: cell_edited },
+		{ title: "ニコニコ作品番号", width: 100, field: "niconico", editor: "input", cellEdited: cell_edited },
+		{ title: "ニコニコ利用", width: 50, field: "available_nico", formatter:"tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
+		{ title: "YouTube 利用", width: 50, field: "available_yt", formatter:"tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
+		{ title: "その他利用", width: 50, field: "available_others", formatter:"tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
+		{ title: "改変", width: 50, field: "available_mod", formatter:"tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
+		{ title: "その他", width: 150, field: "others", editor: "input", cellEdited: cell_edited },
 		{ title: "削除", formatter:"buttonCross", width: 50, hozAlign:"center", cellClick:function(e, cell){
 			if (confirm("本当にこの素材を削除しますか？")) {
     		cell.getRow().delete();
@@ -46,6 +68,11 @@ var table = new Tabulator("#main-table", {
 			}
 		}},
 	]
+});
+
+table.on("rowSelectionChanged", function(data, rows, selected, deselected) {
+	console.log("row selection changed");
+	bChanged = true;
 });
 
 document.getElementById("add-col").addEventListener("click", function() {
@@ -58,7 +85,7 @@ document.getElementById("output-nico").addEventListener("click", async function(
 	let strOut = "";
 	for (const element of selectedRows) {
 		if (element.niconico != "") {
-			strOut += element.niconico + ", ";
+			strOut += element.niconico + " ";
 		}
 	}
 	// console.log(strOut);
@@ -98,9 +125,13 @@ document.getElementById("save-project").addEventListener("click", async function
 	const writable = await handle.createWritable();
 	await writable.write(JSON.stringify(jsonOut, null, 2));
 	await writable.close();
+	bChanged = false;
 });
 
 document.getElementById("open-project").addEventListener("click", async function() {
+	if (bChanged && !confirm("未保存の内容があります。放棄してファイルを開きますか？")) {
+		return;
+	}
 	const pickerOpts = {
 		types: [{
 			description: "JSON files",
@@ -120,4 +151,7 @@ document.getElementById("open-project").addEventListener("click", async function
 		}
 	}
 	maxId = Math.max(...tableData.map(row => row.id));
+	bChanged = false;
 })
+
+window.addEventListener("beforeunload", alert_unsave);
