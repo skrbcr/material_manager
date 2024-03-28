@@ -83,11 +83,6 @@ table.on("rowSelectionChanged", function(data, rows, selected, deselected) {
 	bChanged = true;
 });
 
-// document.getElementById("add-col").addEventListener("click", function() {
-// 	maxId += 1;
-//   table.addRow({ id: maxId, url: "" });
-// });
-
 document.getElementById("output-nico").addEventListener("click", async function() {
 	let selectedRows = table.getSelectedData();
 	let strOut = "";
