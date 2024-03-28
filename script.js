@@ -2,7 +2,7 @@ let maxId = 0;
 let bChanged = false;
 
 function link_url(cell, formatterParams) {
-	var url = cell.getValue();
+	let url = cell.getValue();
 	return "<a class=\"hlink_table\" href=\"" + url + "\" target=\"_blank\">" + url + "</a>";
 }
 
@@ -18,8 +18,12 @@ function alert_unsave(e) {
 	}
 }
 
-var table = new Tabulator("#main-table", {
-	// data: tabledata,
+let table_init = [
+    { id: 1, url: "" },
+];
+
+let table = new Tabulator("#main-table", {
+	data: table_init,
 	// layout: "fitColumns",
 	// responsiveLayout: "hide",
 	height: 450,
@@ -40,14 +44,24 @@ var table = new Tabulator("#main-table", {
 	rowHeader: { headerSort: false, resizable: false, frozen: true, headerHozAlign: "center", hozAlign: "center", formatter: "rowSelection", titleFormatter: "rowSelection", cellClick:function(e, cell) {
 		cell.getRow().toggleSelect();
 	} },
-	// rowSelected: function(row) {
-	// 	console.log("row");
-	// 	bChanged = true;
-	// },
-	// rowDiselected: function(row) {
-	// 	console.log("row");
-	// 	bChanged = true;
-	// },
+    rowContextMenu: [
+        {
+            label: "素材を追加",
+            action: function(e, row) {
+                maxId += 1;
+                table.addRow({ id: maxId, url: "" });
+            }
+        },
+        {
+            label: "素材を削除",
+            action: function(e, row) {
+			    if (confirm("本当にこの素材を削除しますか？")) {
+                    // console.log(row);
+                    row.delete();
+                }
+            }
+        },
+    ],
 	columns: [
 		{ title: "ID", width: 50, field: "id" },
 		{ title: "作者", width: 90, field: "author", editor: "input", cellEdited: cell_edited },
@@ -61,12 +75,6 @@ var table = new Tabulator("#main-table", {
 		{ title: "その他利用", width: 50, field: "available_others", formatter:"tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
 		{ title: "改変", width: 50, field: "available_mod", formatter:"tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
 		{ title: "その他", width: 150, field: "others", editor: "input", cellEdited: cell_edited },
-		{ title: "削除", formatter:"buttonCross", width: 50, hozAlign:"center", cellClick:function(e, cell){
-			if (confirm("本当にこの素材を削除しますか？")) {
-    		cell.getRow().delete();
-				maxId -= 1;
-			}
-		}},
 	]
 });
 
@@ -75,10 +83,10 @@ table.on("rowSelectionChanged", function(data, rows, selected, deselected) {
 	bChanged = true;
 });
 
-document.getElementById("add-col").addEventListener("click", function() {
-	maxId += 1;
-  table.addRow({ id: maxId, url: "" });
-});
+// document.getElementById("add-col").addEventListener("click", function() {
+// 	maxId += 1;
+//   table.addRow({ id: maxId, url: "" });
+// });
 
 document.getElementById("output-nico").addEventListener("click", async function() {
 	let selectedRows = table.getSelectedData();
@@ -153,5 +161,9 @@ document.getElementById("open-project").addEventListener("click", async function
 	maxId = Math.max(...tableData.map(row => row.id));
 	bChanged = false;
 })
+
+window.addEventListener("onLoad", function(e) {
+    console.log("load");
+});
 
 window.addEventListener("beforeunload", alert_unsave);

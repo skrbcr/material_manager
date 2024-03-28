@@ -1,5 +1,6 @@
 .tabulator-row .tabulator-cell {
 	white-space: pre-wrap;
+	word-break: break-word;
 }
 .hlink_table {
 	word-break: break-all;
