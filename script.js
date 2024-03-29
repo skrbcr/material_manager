@@ -1,4 +1,4 @@
-let maxId = 0;
+let maxId = 1;
 let bChanged = false;
 
 function link_url(cell, formatterParams) {
@@ -70,10 +70,11 @@ let table = new Tabulator("#main-table", {
 		{ title: "種類", width: 100, field: "type", editor: "input", cellEdited: cell_edited },
 		{ title: "URL", width: 200, field: "url", formatter: link_url, editor: "input", cellEdited: cell_edited },
 		{ title: "ニコニコ作品番号", width: 100, field: "niconico", editor: "input", cellEdited: cell_edited },
-		{ title: "ニコニコ利用", width: 50, field: "available_nico", formatter:"tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
-		{ title: "YouTube 利用", width: 50, field: "available_yt", formatter:"tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
-		{ title: "その他利用", width: 50, field: "available_others", formatter:"tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
-		{ title: "改変", width: 50, field: "available_mod", formatter:"tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
+		{ title: "ニコニコ利用", width: 50, field: "available_nico", formatter: "tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
+		{ title: "YouTube 利用", width: 50, field: "available_yt", formatter: "tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
+		{ title: "その他利用", width: 50, field: "available_others", formatter: "tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
+        { title: "商用利用", width: 50, field: "available_commerce", formatter: "tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
+		{ title: "改変", width: 50, field: "available_mod", formatter: "tickCross", sorter: "boolean", editor: true, cellEdited: cell_edited },
 		{ title: "その他", width: 150, field: "others", editor: "input", cellEdited: cell_edited },
 	]
 });
