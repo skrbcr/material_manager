@@ -22,6 +22,40 @@ let table_init = [
     { id: 1, url: "" },
 ];
 
+let headerMenu = function() {
+    let menu = [];
+    let columns = this.getColumns();
+
+    for (let column of columns) {
+        if (column.getDefinition().title == "selection") continue;
+        let icon = document.createElement("i");
+        icon.classList.add("fas");
+        icon.classList.add(column.isVisible() ? "fa-check-square" : "fa-square");
+        let label = document.createElement("span");
+        let title = document.createElement("span");
+        title.textContent = " " + column.getDefinition().title;
+        label.appendChild(icon);
+        label.appendChild(title);
+
+        menu.push({
+            label: label,
+            action: function(e) {
+                e.stopPropagation();
+                column.toggle();
+                if (column.isVisible()) {
+                    icon.classList.remove("fa-square");
+                    icon.classList.add("fa-check-square");
+                }
+                else {
+                    icon.classList.remove("fa-check-square");
+                    icon.classList.add("fa-square");
+                }
+            },
+        });
+    }
+    return menu;
+};
+
 let table = new Tabulator("#main-table", {
 	data: table_init,
 	// layout: "fitColumns",
@@ -41,9 +75,10 @@ let table = new Tabulator("#main-table", {
 	groupBy: "type",
 	
 	// autoColumns: true,
-	rowHeader: { headerSort: false, resizable: false, frozen: true, headerHozAlign: "center", hozAlign: "center", formatter: "rowSelection", titleFormatter: "rowSelection", cellClick:function(e, cell) {
+	rowHeader: { title: "selection", headerSort: false, resizable: false, frozen: true, headerHozAlign: "center", hozAlign: "center", formatter: "rowSelection", titleFormatter: "rowSelection", cellClick:function(e, cell) {
 		cell.getRow().toggleSelect();
-	} },
+	},
+        headerMenu: headerMenu, },
     rowContextMenu: [
         {
             label: "素材を追加",
