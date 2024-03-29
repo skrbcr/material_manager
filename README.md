@@ -26,11 +26,9 @@ sm000000 im000000
 
 ## 注意！
 1. 動作保証は Google Chrome, Microsoft Edge のみです。Firefox などでは機能しない可能性が高いです（[詳細](https://developer.mozilla.org/ja/docs/Web/API/Window/showSaveFilePicker#%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%83%BC%E3%81%AE%E4%BA%92%E6%8F%9B%E6%80%A7)）。
-2. ライセンスは MIT License です。そのため、無保証となります。
-3. ~~保存せずにブラウザを閉じたり更新したりしても警告が出ません。**保存していないデータは消失**します。現在、警告を発するように機能改善を目指しています。~~  
-→ 未保存のデータがある状態で閉じる・更新・新しいファイルを開くときに警告を発するようになりました。
-4. ライブラリを読み込むためにインターネットに接続されている必要があります。
+2. ライセンスは MIT License です。そのため無保証となります。
+3. ライブラリを読み込むためにインターネットに接続されている必要があります。
 
 ## Special Thanks
-高機能な表は [Tabulator](https://tabulator.info/) を用いて実現しています。
+高機能な表は [Tabulator](https://tabulator.info/) を用いて実現しています。絵文字に [Font Awesome](https://fontawesome.com/) を利用しています。
 
