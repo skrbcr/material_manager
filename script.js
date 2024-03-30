@@ -100,8 +100,8 @@ let table = new Tabulator("#main-table", {
 	columns: [
 		{ title: "ID", width: 50, field: "id" },
 		{ title: "作者", width: 90, field: "author", editor: "input", cellEdited: cell_edited },
-		{ title: "作品名", width: 100, field: "name", editor: "input", cellEdited: cell_edited },
-		{ title: "作品名（詳細）", width: 135, field: "name_detail", editor: "input", cellEdited: cell_edited },
+		{ title: "作品名", width: 200, field: "name", editor: "input", cellEdited: cell_edited },
+		// { title: "作品名（詳細）", width: 135, field: "name_detail", editor: "input", cellEdited: cell_edited },
 		{ title: "種類", width: 100, field: "type", editor: "input", cellEdited: cell_edited },
 		{ title: "URL", width: 200, field: "url", formatter: link_url, editor: "input", cellEdited: cell_edited },
 		{ title: "ニコニコ作品番号", width: 100, field: "niconico", editor: "input", cellEdited: cell_edited },
