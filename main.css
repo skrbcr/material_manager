@@ -13,9 +13,26 @@
   white-space: normal;
   text-overflow: clip;
 }
+.features {
+	margin: 0.5em 0 1em 0;
+}
+.features-buttons {
+	margin-bottom: 0.5em;
+}
 code {
   background-color: #dddddd;
   border-radius: 6px;
   padding: 0.2em 0.4em;
   white-space: break-spaces;
+}
+details {
+	border: 1px solid #aaaaaa;
+	border-radius: 4px;
+	padding: 0.5em 0.5em 0 0.5em;
+}
+summary {
+	padding-bottom: 0.5em;
+}
+hr {
+	margin: 0.5em 0 0.5em 0;
 }
