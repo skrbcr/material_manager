@@ -9,3 +9,9 @@
 	white-space: normal;
 	text-overflow: clip;
 }
+code {
+	background-color: #dddddd;
+	border-radius: 6px;
+	padding: .2em .4em;
+	white-space: break-spaces;
+}

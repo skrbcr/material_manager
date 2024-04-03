@@ -7,7 +7,6 @@ function link_url(cell, formatterParams) {
 }
 
 function cell_edited(cell) {
-	console.log("cellEdited");
 	bChanged = true;
 }
 
@@ -79,10 +78,10 @@ let table = new Tabulator("#main-table", {
 		cell.getRow().toggleSelect();
 	},
         headerMenu: headerMenu, },
-    rowContextMenu: [
-        {
-            label: "素材を追加",
-            action: function(e, row) {
+  rowContextMenu: [
+		{
+			label: "素材を追加",
+			action: function(e, row) {
                 maxId += 1;
                 table.addRow({ id: maxId, url: "" });
             }
@@ -90,8 +89,7 @@ let table = new Tabulator("#main-table", {
         {
             label: "素材を削除",
             action: function(e, row) {
-			    if (confirm("本当にこの素材を削除しますか？")) {
-                    // console.log(row);
+			  if (confirm("本当にこの素材を削除しますか？")) {
                     row.delete();
                 }
             }
@@ -115,7 +113,6 @@ let table = new Tabulator("#main-table", {
 });
 
 table.on("rowSelectionChanged", function(data, rows, selected, deselected) {
-	console.log("row selection changed");
 	bChanged = true;
 });
 
@@ -127,7 +124,6 @@ document.getElementById("output-nico").addEventListener("click", async function(
 			strOut += element.niconico + " ";
 		}
 	}
-	// console.log(strOut);
 	const handle = await window.showSaveFilePicker({
 		suggestedName: "親作品番号",
 		types: [{
@@ -144,17 +140,14 @@ document.getElementById("save-project").addEventListener("click", async function
 	let selectedRows = table.getSelectedData();
 	let selectedRowIndices = [];
 	for (const element of selectedRows) {
-		// console.log(element);
 		selectedRowIndices.push(element.id);
 	}
-	// console.log(selectedRowIndices);
 	let jsonOut = table.getData();
 	jsonOut.forEach(row => {
-		// console.log(row);
 		row.select = selectedRowIndices.includes(row.id);
 	});
 	const pickerOpts = {
-		suggestedName: "project",
+		suggestedName: "list",
 		types: [{
 			description: "JSON files",
 			accept: { "application/json": [ ".json" ] },
@@ -193,8 +186,23 @@ document.getElementById("open-project").addEventListener("click", async function
 	bChanged = false;
 })
 
-window.addEventListener("onLoad", function(e) {
-    console.log("load");
+document.getElementById("output-list").addEventListener("click", async function() {
+	const strStyle = document.getElementById("output-list-style").value;
+	let selectedRows = table.getSelectedData();
+	let strOut = "";
+	for (const element of selectedRows) {
+		strOut += strStyle.replace("$author$", element.author).replace("$name$", element.name).replace("$url$", element.url).replace("$nico$", element.niconico) + "\r\n";
+	}
+	const handle = await window.showSaveFilePicker({
+		suggestedName: "作品リスト",
+		types: [{
+			description: "Text file",
+			accept: {"text/plain": [".txt"]},
+		}],
+	});
+	const writable = await handle.createWritable();
+	await writable.write(strOut);
+	await writable.close();
 });
 
 window.addEventListener("beforeunload", alert_unsave);

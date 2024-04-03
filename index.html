@@ -15,6 +15,19 @@
 		<button id="open-project">リストを開く</button>
 		<button id="save-project">リストを保存</button>
 		<button id="output-nico">親作品を出力</button>
+        <details>
+            <summary>リストをテキストに出力</summary>
+            <p>選択した素材リストを、書式を指定してテキストファイルに出力します。書式：</p>
+            <ul>
+                <li><code>$author$</code>：作者</li>
+                <li><code>$name$</code>：作品名</li>
+                <li><code>$url$</code>：URL</li>
+                <li><code>$nico$</code>：ニコニコ作品番号</li>
+            </ul>
+            <p><code>$name$：$author$</code>のように入力すると「（作品名）：（作者）」の形式で出力されます。</p>
+            <input id ="output-list-style" type="text">
+            <button id="output-list">出力</button>
+        </details>
 	</div>
 	<hr/>
 	<div id="main-table"></div>
