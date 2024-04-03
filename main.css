@@ -1,17 +1,21 @@
 .tabulator-row .tabulator-cell {
-	white-space: pre-wrap;
-	word-break: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 .hlink_table {
-	word-break: break-all;
+  word-break: break-all;
 }
-.tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title{
-	white-space: normal;
-	text-overflow: clip;
+.tabulator
+  .tabulator-header
+  .tabulator-col
+  .tabulator-col-content
+  .tabulator-col-title {
+  white-space: normal;
+  text-overflow: clip;
 }
 code {
-	background-color: #dddddd;
-	border-radius: 6px;
-	padding: .2em .4em;
-	white-space: break-spaces;
+  background-color: #dddddd;
+  border-radius: 6px;
+  padding: 0.2em 0.4em;
+  white-space: break-spaces;
 }

@@ -1,42 +1,70 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-	<meta charset="utf-8">
-  <link href="https://unpkg.com/tabulator-tables@6.1.0/dist/css/tabulator.min.css" rel="stylesheet">
-  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.1.0/dist/js/tabulator.min.js"></script>
-	<script src="https://kit.fontawesome.com/8570ab9dba.js" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="./main.css">
-	<link rel="shortcut icon" href="https://skrbcr.github.io/favicon.png" type="image/x-icon">
-  <title>素材リスト</title>
-</head>
-<body>
-	<h1>素材リスト</h1>
-	<div>
-		<button id="open-project">リストを開く</button>
-		<button id="save-project">リストを保存</button>
-		<button id="output-nico">親作品を出力</button>
-        <details>
-            <summary>リストをテキストに出力</summary>
-            <p>選択した素材リストを、書式を指定してテキストファイルに出力します。書式：</p>
-            <ul>
-                <li><code>$author$</code>：作者</li>
-                <li><code>$name$</code>：作品名</li>
-                <li><code>$url$</code>：URL</li>
-                <li><code>$nico$</code>：ニコニコ作品番号</li>
-            </ul>
-            <p><code>$name$：$author$</code>のように入力すると「（作品名）：（作者）」の形式で出力されます。</p>
-            <input id ="output-list-style" type="text">
-            <button id="output-list">出力</button>
-        </details>
-	</div>
-	<hr/>
-	<div id="main-table"></div>
-	<script type="text/javascript" src="./script.js"></script>
-	<hr/>
-	<p>表機能には <a href="https://tabulator.info/" target="_blank">Tabulator</a> が使用されました。素晴らしいライブラリに感謝！</p>
-	<a href="https://skrbcr.github.io/" target="_blank">HOME</a>　
-	<a href="https://github.com/skrbcr/material_manager/blob/main/manual.md" target="_blank">マニュアル</a>　
-    <a href="https://github.com/skrbcr/material_manager" target="_blank">GitHub で見る</a>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://unpkg.com/tabulator-tables@6.1.0/dist/css/tabulator.min.css"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/tabulator-tables@6.1.0/dist/js/tabulator.min.js"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/8570ab9dba.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./main.css" />
+    <link
+      rel="shortcut icon"
+      href="https://skrbcr.github.io/favicon.png"
+      type="image/x-icon"
+    />
+    <title>素材リスト</title>
+  </head>
+  <body>
+    <h1>素材リスト</h1>
+    <div>
+      <button id="open-project">リストを開く</button>
+      <button id="save-project">リストを保存</button>
+      <button id="output-nico">親作品を出力</button>
+      <details>
+        <summary>リストをテキストに出力</summary>
+        <p>
+          選択した素材リストを、書式を指定してテキストファイルに出力します。書式：
+        </p>
+        <ul>
+          <li><code>$author$</code>：作者</li>
+          <li><code>$name$</code>：作品名</li>
+          <li><code>$url$</code>：URL</li>
+          <li><code>$nico$</code>：ニコニコ作品番号</li>
+        </ul>
+        <p>
+          <code>$name$：$author$</code
+          >のように入力すると「（作品名）：（作者）」の形式で出力されます。
+        </p>
+        <input id="output-list-style" type="text" />
+        <button id="output-list">出力</button>
+      </details>
+    </div>
+    <hr />
+    <div id="main-table"></div>
+    <script type="text/javascript" src="./script.js"></script>
+    <hr />
+    <p>
+      表機能には
+      <a href="https://tabulator.info/" target="_blank">Tabulator</a>
+      が使用されました。素晴らしいライブラリに感謝！
+    </p>
+    <a href="https://skrbcr.github.io/" target="_blank">HOME</a>　
+    <a
+      href="https://github.com/skrbcr/material_manager/blob/main/manual.md"
+      target="_blank"
+      >マニュアル</a
+    >　
+    <a href="https://github.com/skrbcr/material_manager" target="_blank"
+      >GitHub で見る</a
+    >
+  </body>
 </html>
 <div id="example-table"></div>
